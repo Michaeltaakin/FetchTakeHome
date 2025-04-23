@@ -33,7 +33,7 @@ WITH clean_transaction_table as (
     SELECT 
         p.brand, count(distinct t.user_id) unique_customers
     FROM clean_transaction_table t 
-    LEFT JOIN clean_product_table p on t.barcode = p.barcode
+    LEFT JOIN clean_product_table p on cast(t.barcode as nvarchar(max)) = cast(p.barcode as nvarchar(max))
     WHERE t.final_quantity >= 1
         AND t.final_sale > 0
         AND p.category_2 = 'Dips & Salsa'
